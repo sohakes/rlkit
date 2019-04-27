@@ -277,6 +277,12 @@ class Logger(object):
         self._prefix_str = ''.join(self._prefixes)
 
     def save_itr_params(self, itr, params):
+        if 'evaluation/env' in params:
+            del params['evaluation/env']
+
+        if 'exploration/env' in params:
+            del params['exploration/env']
+
         if self._snapshot_dir:
             if self._snapshot_mode == 'all':
                 file_name = osp.join(self._snapshot_dir, 'itr_%d.pkl' % itr)
